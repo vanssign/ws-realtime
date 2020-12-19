@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Drawboard</title>
+    </head>
+    <body>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" integrity="sha512-+4zCK9k+qNFUR5X+cKL9EIR+ZOhtIloNl9GIKS57V1MyNsYpYcUrUeQc9vNfzsWfV28IaLL3i96P9sdNyeRssA==" crossorigin="anonymous"/>
+        <div id="clientIdContainer"></div>
+        <button id="newDrawboard">New Drawboard</button>
+        <input id="txtDrawboardId" type="text">
+        <button id="joinDrawboard">Join Drawboard</button><br/>
+        <div id="drawboardIdContainer"></div>
+        <canvas id="myCanvas" width="600" height="500" style="border:1px solid #000000;"></canvas>
+        <div id="paintBrushContainer"></div>
+        <div
+            id="paintBrush" style="position: absolute;">
+            <!-- Include a header DIV with the same name as the draggable DIV, followed by "header" -->
+            <div id="paintBrushheader" style="cursor:grabbing;">
+                <i class="fas fa-paint-brush fa-lg" style="color:red"></i>
+            </div>
+        </div>
+        <script>
+            let clientId = null;
+            let drawboardId=null;
+            let ws = new WebSocket("ws://localhost:9090");
+
+            const newDrawboard = document.getElementById("newDrawboard");
+            const joinDrawboard = document.getElementById("joinDrawboard");
+            const paintBrush = document.getElementById("paintBrush");
+            const txtDrawboardId = document.getElementById("txtDrawboardId");
+            const drawboardIdContainer = document.getElementById("drawboardIdContainer");
+            var canvas = document.getElementById("myCanvas");
+            var ctx = canvas.getContext("2d");
+
+            newDrawboard.addEventListener("click", e => {
+                const payLoad = {
+                    "method": "newDrawboard",
+                    "clientId": clientId
+                }
+                ws.send(JSON.stringify(payLoad));
+            })
+
+            joinDrawboard.addEventListener("click", e => {
+                if (drawboardId === null)
+                    drawboardId = txtDrawboardId.value;
+                
+                const payLoad = {
+                    "method": "joinDrawboard",
+                    "clientId": clientId,
+                    "drawboardId": drawboardId
+                }
+                ws.send(JSON.stringify(payLoad));
+            })
+
+
+            // Make the DIV element draggable:
+            dragElement(document.getElementById("paintBrush"));
+            function dragElement(elmnt) {
+                var pos1 = 0,
+                    pos2 = 0,
+                    pos3 = 0,
+                    pos4 = 0;
+                if (document.getElementById(elmnt.id + "header")) { // if present, the header is where you move the DIV from:
+                    document.getElementById(elmnt.id + "header").onmousedown = dragMouseDown;
+                } else { // otherwise, move the DIV from anywhere inside the DIV:
+                    elmnt.onmousedown = dragMouseDown;
+                }
+
+                function dragMouseDown(e) {
+                    e = e || window.event;
+                    e.preventDefault();
+                    // get the mouse cursor position at startup:
+                    pos3 = e.clientX;
+                    pos4 = e.clientY;
+                    document.onmouseup = closeDragElement;
+                    // call a function whenever the cursor moves:
+                    document.onmousemove = elementDrag;
+                }
+
+                function elementDrag(e) {
+                    e = e || window.event;
+                    e.preventDefault();
+                    // calculate the new cursor position:
+                    pos1 = pos3 - e.clientX;
+                    pos2 = pos4 - e.clientY;
+                    pos3 = e.clientX;
+                    pos4 = e.clientY;
+                    // set the element's new position:
+                    elmnt.style.top = (elmnt.offsetTop - pos2) + "px";
+                    elmnt.style.left = (elmnt.offsetLeft - pos1) + "px";
+
+                    var m = (elmnt.offsetLeft - pos1);
+                    var n = (elmnt.offsetTop - pos2);
+                    if (elmnt.id === "paintBrush") 
+                        drawOnCanvas(m, n);
+                     else if (elmnt.id === "eraser") 
+                        eraseOnCanvas(m, n);
+                    
+                }
+
+                function closeDragElement() { // stop moving when mouse button is released:
+                    document.onmouseup = null;
+                    document.onmousemove = null;
+                }
+            }
+
+
+            // Drawing on Canvas
+            function drawOnCanvas(i, j) {
+                ctx.strokeStyle = "red";
+                ctx.lineTo(i, j);
+                ctx.stroke();
+            }
+            // function eraseOnCanvas(i,j){
+            //     ctx.strokeStyle="purple";
+            //     ctx.lineTo(i,j);
+            //     ctx.stroke();
+            // }
+
+            // message recieved from ws server
+            ws.onmessage = message => { // message.data
+                const response = JSON.parse(message.data);
+                console.log(response);
+                // connect
+                if (response.method === "connect") {
+                    clientId = response.clientId;
+                    clientIdContainer.innerHTML = "ClientId: " + clientId;
+                    console.log("Client id Set successfully " + clientId)
+                }
+
+                if (response.method === "newDrawboard") {
+                    drawboardId = response.drawboard.id;
+                    drawboardIdContainer.innerHTML = "drawboardId: " + drawboardId;
+                    if (drawboardId === null) 
+                        drawboardId = txtDrawboardId.value;
+                    
+                    const payLoad = {
+                        "method": "joinDrawboard",
+                        "clientId": clientId,
+                        "drawboardId": drawboardId
+                    }
+                    ws.send(JSON.stringify(payLoad));
+                }
+                if(response.method==="joinDrawboard"){
+                  drawboardId = response.drawboard.id;
+                  drawboardIdContainer.innerHTML = "DrawboardId: " + drawboardId;
+                  
+
+                }
+            }
+        </script>
+    </body>
+</html>

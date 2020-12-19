@@ -1,0 +1,125 @@
+html{
+    max-width: 100%;
+    
+}
+body{
+  max-height: 100%;
+  overflow-x: hidden; 
+  background-image: url('backround.jfif');
+}
+
+.signindiv{
+  font-family: Roboto;
+  font-size: 1.5em;
+  padding-top: 10px;
+  padding-right: 20px;
+}
+
+.signindiv:hover{
+	cursor: pointer;
+	text-decoration: underline;
+}
+
+.logo{
+	margin-top:130px;
+}
+
+.tagline{
+	
+	font-family: Comic Neue;
+	font-size: 24px;
+	height: 19px;
+}
+
+.gamesone{
+
+	margin-top: 100px;
+}
+
+.gamestwo{
+
+	margin-left: 38px;
+	margin-right: 38px;
+}
+
+.LUDO{
+
+	font-family: Ubuntu;
+	font-size: 2.25vw;
+	color: #FFFFFF;
+
+}
+
+.mini{
+	font-family: Suez One;
+	font-size: 1.5vw;
+	color: #F5E65B;
+}
+
+.checkers{
+
+	font-family: Noto Serif;
+	font-size: 2.25vw;
+	color: #FFFFFF;
+}
+
+.drawboard{
+
+	font-family: Comic Neue;
+	font-weight: bold;
+	font-size: 2.25vw;
+	color: #424242;
+	margin-top: -0.68vh;
+}
+
+.draw{
+
+	font-family: Comic Neue;
+	font-size: 1.125vw;
+	color: #000000;
+	margin-top: -4vh;
+}
+
+.custom{
+
+	font-family: Roboto;
+	font-size: 2.25vw;
+	color: #FFFFFF;
+
+}
+
+.oneblocks{
+	margin-left: 15px;
+	margin-right: 15px;
+	height: 10vh;
+	padding-left: 25px;
+	padding-top: 15px;
+}
+
+.oneblocks:hover{
+
+	margin: -5px 1px 5px 1px;
+	cursor: pointer;
+}
+
+.twoblocks{
+	height: 10vh;
+	padding-left: 25px;
+	padding-top: 15px;
+	margin-left: 15px;
+	margin-right: 15px;
+}
+
+.twoblocks:hover{
+
+	margin: -5px 1px 5px 1px;
+	cursor: pointer;
+}
+
+.woodrow{
+	height: 50px;
+}
+.wood{
+	height: 50px;
+	width: 100%
+}

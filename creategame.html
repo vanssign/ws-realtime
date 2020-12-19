@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Tip Tap</title>
+    </head>
+    <body>
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+        <h1>Tip Tap
+        </h1>
+        <div id="clientIdContainer"></div>
+        <div id="tokens">Tokens
+            <button id="btnAddToken">
+                +
+            </button>
+            <br/>
+        </div>
+        <button id="gettokeninfo">Confirm Tokens</button><br/>
+        <label>No. of Dice</label>
+        <input type="text" id="noofDice"><br/>
+        <label>Board Image Upload</label>
+        <input type="text" id="boardImageLink"><br/>
+        <button id='btnCreate'>Create Game</button><br/>
+        <div id="gameIdContainer"></div>
+        <div id="boardImage"></div>
+
+        <script>
+            // HTML elements
+            let clientId = null;
+            let gameId = null;
+            let playerColor = null;
+            let boardImagelink = null;
+            let ws = new WebSocket("ws://localhost:9090");
+
+            const btnCreate = document.getElementById("btnCreate");
+            const gameIdContainer = document.getElementById("gameIdContainer");
+            const clientIdContainer = document.getElementById("clientIdContainer");
+            const noofDice = document.getElementById("noofDice");
+            const boardImageLink = document.getElementById("boardImageLink");
+            const boardImage = document.getElementById("boardImage");
+            const tokensinfocolor = document.getElementsByClassName("tokeninfocolor");
+            const tokensinfono = document.getElementsByClassName("tokeninfono");
+            const gettokeninfo = document.getElementById("gettokeninfo");
+            const tokenscolorarray = [];
+            const tokensnoarray = [];
+            const tokenContainer = document.getElementById("tokenContainer");
+            const diceContainer=document.getElementById("diceContainer");
+            const btnAddToken = document.getElementById("btnAddToken");
+
+            //on pressing + this is appended to #token element
+            var newTokenHTML = "<input type='text' class='tokeninfocolor'> " + "<input type='text' class='tokeninfono'>"
+
+            btnAddToken.addEventListener("click", e => {
+                let tokenboxItem = document.createElement("div");
+                tokenboxItem.innerHTML = newTokenHTML;
+                document.getElementById("tokens").appendChild(tokenboxItem);
+            })
+
+            gettokeninfo.addEventListener("click", e => {
+                for (var count = 0; count < tokensinfocolor.length; count++) {
+                    tokenscolorarray[count] = tokensinfocolor[count].value;
+                    tokensnoarray[count] = tokensinfono[count].value;
+                }
+                console.log(tokenscolorarray);
+                console.log(tokensnoarray);
+            })
+
+            // wiring events
+
+            btnCreate.addEventListener("click", e => {
+                const payLoad = {
+                    "method": "create",
+                    "clientId": clientId,
+                    "tokenscolorarray": tokenscolorarray,
+                    "tokensnoarray": tokensnoarray,
+                    "noofDice": noofDice.value,
+                    "boardImage": boardImageLink.value
+                }
+                ws.send(JSON.stringify(payLoad));
+            })
+
+            // message recieved from ws server
+            ws.onmessage = message => { // message.data
+                const response = JSON.parse(message.data);
+                console.log(response);
+                // connect
+                if (response.method === "connect") {
+                    clientId = response.clientId;
+                    clientIdContainer.innerHTML = "ClientId: " + clientId;
+                    console.log("Client id Set successfully " + clientId)
+                }
+
+                // create
+                if (response.method === "create") {
+                    gameId = response.game.id;
+                    gameIdContainer.innerHTML = "gameId: " + gameId;
+                    boardImage.innerHTML ="<img src='" + response.game.boardImage + "' >";
+                    console.log("game successfully created with id " + response.game.id);
+                }
+            }
+        </script>
+    </body>
+</html>
