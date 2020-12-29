@@ -1,0 +1,265 @@
+body{
+  max-height: 100%;
+  overflow-x: auto; 
+  background-image: url('background.jfif');
+
+}
+.gameCreate{
+
+	font-family: Ubuntu;
+	color: #000000;
+	max-width: 250px;
+	max-height: 70px;
+	background: #F6F6F6;
+	box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+}
+
+.backButton{
+	height: 40px;
+	width: 40px;
+	background-color: transparent; 
+	background-image: url("back.png");
+	background-position: center;
+	background-repeat: no-repeat;  
+	border: none;
+}
+
+.backCol{
+	height: 100%;
+	margin-top: auto;
+	margin-bottom: auto; 
+}
+
+.headingCol{
+	height: 100%;
+	margin-top: auto;
+	margin-bottom: auto;
+}
+
+.tokenCol{
+	width: 100%;
+	justify-content: center;
+	display: flex;
+	#background: #666666;
+}
+
+.diceCol{
+	width: 100%;
+	justify-content: center;
+	display: flex;
+	#background: #654321;
+}
+
+clientID{
+}
+
+#uploadTextTwo{
+	display: none;
+}
+
+#incorrectImage{
+	display: none;
+}
+
+.tokenContainer{
+	
+	
+	overflow-x: hidden;
+	margin-left: 5vh;
+	margin-right: 5vh;
+	margin-top: 7.5vh; 
+	width: 100%;
+	height: 213px;
+	#max-width: 315px;
+	background: #F6F6F6;	
+	box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+	overflow-y: auto;
+}
+
+.tokenText{
+	
+	color: #000000;
+	font-family: Roboto;
+	font-weight: 500;
+	font-size:  24px;
+	padding-top: 2.77vh;
+	margin-bottom: 2.77vh;
+
+}
+
+.tokeninfocolor{
+
+	margin-left: 2.77vh;
+    	width: 100%;
+	border-radius: 0.69vh;
+}
+
+.tokeninfono{
+
+	margin-left: 1.38vh;
+    	width: 100%;
+	border-radius: 0.69vh;
+}
+
+.tokenRemove{
+	
+	background-color: transparent; 
+	margin-right: 2.77vh;
+	background-image: url("delete.png");
+	background-position: center;
+	background-repeat: no-repeat; 
+	border-radius: 50%;
+	height: 40px;
+	width: 40px;
+	border: 1px solid #000000;
+}
+
+.tokenRow{
+	height: 6.9vh;
+}
+
+.tokenAdd{
+	
+	background-color: transparent; 
+	background-image: url("add.png");
+	background-position: center;
+	background-repeat: no-repeat; 
+	margin-right: 2.77vh;
+	margin-top: 1.38vh;
+	border-radius: 13.8vh;
+	height: 5.54vh;
+	width: 5.54vh;
+	border: 1px solid #000000;
+}
+
+.infoCol{
+	padding-top: 1.38vh;
+}
+.removeCol{
+	
+	padding-top: 0.69vh;
+}
+.infoColorCol{
+	padding-top: 1.38vh;
+}
+.diceContainer{
+	
+	overflow-x: hidden;
+	margin-left: 5vh;
+	margin-right: 5vh;
+	margin-top: 7.5vh;
+	width: 100%;
+	height: 213px;
+	background: #F6F6F6;	
+	box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+	overflow-y: auto;
+}
+
+.labelText{
+	padding-left: 20px;
+	font-family: Roboto;
+	font-size: 18px;
+}
+
+.confirmButton{
+	
+	margin-top: 5vh;
+	background-color: transparent; 
+	border: 1px solid #000000;
+	box-sizing: border-box;
+	border-radius: 0.69vh;
+}
+
+.dragDropCol{
+	
+	#background: #654321;
+}
+.dragDropRow{
+	#background: #123456;	
+}
+.dragBoard{
+	
+	margin: 20px;
+	width: 100%;
+	height: 100%;
+	min-width: 400px;
+	max-width: 500px;
+	min-height: 500px;
+	max-height: 500px;
+	background: #EDEDED;
+	border: 1.38vh solid rgba(0, 0, 0, 0.84);
+	#box-sizing: border-box;
+	box-shadow: 0px 0.55vh 0.55vh rgba(0, 0, 0, 0.25), 0.55vh 0.55vh 3.46vh 1.38vh rgba(0, 0, 0, 0.15);
+	
+}
+
+.fileInputClass{
+	display: none;
+}
+
+
+.dragBoardFileHover{
+	#background-image: url('');
+	background-color: #AFAFAF;
+}
+
+.uploadLabel{
+	font-family: Roboto;
+	text-decoration: underline;
+}
+	
+.uploadLabel:hover{
+	cursor: pointer;
+	color: #959595;
+}
+
+.dragDropText{
+	font-family: Roboto;
+
+}
+
+.loadResetContainer{
+	
+	margin: 6.9vh;
+	margin-top: 30px;
+	margin-bottom: 20px;
+	width: 100%;
+	max-width: 200px;
+	height: 200px;
+	background: #F6F6F6;	
+	box-shadow: 0px 0.55vh 0.55vh rgba(0, 0, 0, 0.25);
+}
+
+.resetButton{
+
+	margin-top: 5vh;
+	background-color: transparent; 
+	border: 1px solid #000000;
+	box-sizing: border-box;
+	border-radius: 0.69vh;
+}
+
+.loadButton{
+	margin-top: 5vh;
+	background-color: transparent; 
+	border: 1px solid #000000;
+	box-sizing: border-box;
+	border-radius: 0.69vh;
+}
+
+.saveButton{
+
+	background-color: transparent; 
+	border: 1px solid #000000;
+	box-sizing: border-box;
+	border-radius: 0.69vh;
+	height: 5vh;
+	width: 10vh;
+	margin-bottom: 20px;
+}
+
+.imageLinkRow{
+	margin: 5vh;
+}
+
+

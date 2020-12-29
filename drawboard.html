@@ -12,18 +12,22 @@
         <input id="txtDrawboardId" type="text">
         <button id="joinDrawboard">Join Drawboard</button><br/>
         <div id="drawboardIdContainer"></div>
-        <canvas id="myCanvas" width="600" height="500" style="border:1px solid #000000;"></canvas>
+        <div id="canvasContainer">
+            <canvas id="myCanvas" width="600" height="500" style="border:1px solid #000000;"></canvas>
+        </div>
+
         <div id="paintBrushContainer"></div>
         <div
             id="paintBrush" style="position: absolute;">
             <!-- Include a header DIV with the same name as the draggable DIV, followed by "header" -->
             <div id="paintBrushheader" style="cursor:grabbing;">
-                <i class="fas fa-paint-brush fa-lg" style="color:red"></i>
+                <i class="fas fa-paint-brush fa-lg" id="paintBrushIcon"></i>
             </div>
         </div>
         <script>
             let clientId = null;
-            let drawboardId=null;
+            let drawboardId = null;
+            let playerColor = null;
             let ws = new WebSocket("ws://localhost:9090");
 
             const newDrawboard = document.getElementById("newDrawboard");
@@ -43,9 +47,10 @@
             })
 
             joinDrawboard.addEventListener("click", e => {
-                if (drawboardId === null)
+                if (drawboardId === null) 
                     drawboardId = txtDrawboardId.value;
                 
+
                 const payLoad = {
                     "method": "joinDrawboard",
                     "clientId": clientId,
@@ -90,13 +95,24 @@
                     // set the element's new position:
                     elmnt.style.top = (elmnt.offsetTop - pos2) + "px";
                     elmnt.style.left = (elmnt.offsetLeft - pos1) + "px";
-
                     var m = (elmnt.offsetLeft - pos1);
                     var n = (elmnt.offsetTop - pos2);
-                    if (elmnt.id === "paintBrush") 
-                        drawOnCanvas(m, n);
-                     else if (elmnt.id === "eraser") 
-                        eraseOnCanvas(m, n);
+                    if (elmnt.id === "paintBrush") { // call drawOnCanvas for drawing via canvas inbuilt functions
+                        drawOnCanvas(playerColor,elmnt.offsetLeft,elmnt.offsetTop,m, n);
+
+                        const payLoad = {
+                            "method": "updateDrawboard",
+                            "xposi":elmnt.offsetLeft,
+                            "yposi":elmnt.offsetTop,
+                            "xposf": m,
+                            "yposf": n,
+                            "clientId": clientId,
+                            "color": playerColor,
+                            "drawboardId": drawboardId
+                        }
+                        ws.send(JSON.stringify(payLoad));
+                    } else if (elmnt.id === "eraser") 
+                        eraseOnCanvas(pos3,pos4,m, n);
                     
                 }
 
@@ -108,9 +124,12 @@
 
 
             // Drawing on Canvas
-            function drawOnCanvas(i, j) {
-                ctx.strokeStyle = "red";
-                ctx.lineTo(i, j);
+            function drawOnCanvas(color,initialposX,initialposY,finalposX,finalposY ) {
+                ctx.beginPath();
+                ctx.lineWidth=5;
+                ctx.strokeStyle = color;
+                ctx.moveTo(initialposX, initialposY);
+                ctx.lineTo(finalposX, finalposY);
                 ctx.stroke();
             }
             // function eraseOnCanvas(i,j){
@@ -136,6 +155,7 @@
                     if (drawboardId === null) 
                         drawboardId = txtDrawboardId.value;
                     
+
                     const payLoad = {
                         "method": "joinDrawboard",
                         "clientId": clientId,
@@ -143,11 +163,20 @@
                     }
                     ws.send(JSON.stringify(payLoad));
                 }
-                if(response.method==="joinDrawboard"){
-                  drawboardId = response.drawboard.id;
-                  drawboardIdContainer.innerHTML = "DrawboardId: " + drawboardId;
-                  
+                if (response.method === "joinDrawboard") {
+                    drawboardId = response.drawboard.id;
+                    drawboardIdContainer.innerHTML = "DrawboardId: " + drawboardId;
+                    if (playerColor === null) {
+                        playerColor = response.drawboard.clients[response.drawboard.clients.length - 1].color;
+                        document.getElementById("paintBrushIcon").style.color = playerColor;
+                    }
 
+                }
+
+                if (response.method === "updateDrawboard") {
+                    if (response.clientId !== clientId) 
+                        drawOnCanvas(response.color, response.xposi, response.yposi,response.xposf, response.yposf);
+                    
                 }
             }
         </script>
