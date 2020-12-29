@@ -5,11 +5,11 @@ app.get("/creategame",(req,res)=>res.sendFile(__dirname+"/creategame.html"));
 app.get("/joingame",(req,res)=>res.sendFile(__dirname+"/joingame.html"));
 app.get("/drawboard",(req,res)=>res.sendFile(__dirname+"/drawboard.html"));
 app.use(express.static('public'));
-app.listen(9091,()=>console.log('Express Server Listening on port 9091'));
+app.listen(process.env.PORT||9091,()=>console.log('Express Server Listening on port 9091'));
 const websocketServer=require('websocket').server;
 const httpServer=http.createServer();
 const uuid=require('uuid')
-httpServer.listen(9090,()=>console.log('http server(WS) Listening on 9090'));
+httpServer.listen(process.env.PORT||9090,()=>console.log('http server(WS) Listening on 9090'));
 
 const clients={};
 const games={};
