@@ -92,6 +92,30 @@ WsServer.on("request",request=>{
             })
         }
 
+        if(result.method==="updateDrawboard"){
+            const clientId=result.clientId;
+            const xposi=result.xposi;
+            const yposi=result.yposi;
+            const xposf=result.xposf;
+            const yposf=result.yposf;
+            const color=result.color;
+            const drawboardId=result.drawboardId;
+
+            const payLoad = {
+                "method": "updateDrawboard",
+                "xposi": xposi,
+                "yposi":yposi,
+                "xposf":xposf,
+                "yposf":yposf,
+                "clientId":clientId,
+                "color":color
+            }
+            drawboards[drawboardId].clients.forEach(c => {
+                clients[c.clientId].connection.send(JSON.stringify(payLoad))
+            })
+
+        }
+
         //a client want to join
         if (result.method === "join") {
 
