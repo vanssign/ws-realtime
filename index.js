@@ -5,7 +5,7 @@ app.get("/creategame",(req,res)=>res.sendFile(__dirname+"/creategame.html"));
 app.get("/joingame",(req,res)=>res.sendFile(__dirname+"/joingame.html"));
 app.get("/drawboard",(req,res)=>res.sendFile(__dirname+"/drawboard.html"));
 app.use(express.static('public'));
-app.listen(process.env.PORT||9091,()=>console.log('Express Server Listening on port 9091'));
+app.listen(process.env.PORT|| 9091,()=>console.log('Express Server Listening on port 9091'));
 const websocketServer=require('websocket').server;
 const httpServer=http.createServer();
 const uuid=require('uuid')
@@ -75,7 +75,7 @@ WsServer.on("request",request=>{
             const drawboardId = result.drawboardId;
             console.log(drawboardId);
             const drawboard = drawboards[drawboardId];
-            console.log(drawboard);
+            if(drawboard!==undefined){
             const color =  {"0": "red", "1": "blue","2":"green","3":"orange" }[drawboard.clients.length]
             drawboard.clients.push({
                 "clientId": clientId,
@@ -89,7 +89,7 @@ WsServer.on("request",request=>{
             //loop through all clients and tell them that people has joined
             drawboard.clients.forEach(c => {
                 clients[c.clientId].connection.send(JSON.stringify(payLoad))
-            })
+            })}
         }
 
         if(result.method==="updateDrawboard"){
@@ -100,7 +100,7 @@ WsServer.on("request",request=>{
             const yposf=result.yposf;
             const color=result.color;
             const drawboardId=result.drawboardId;
-
+            if(drawboards[drawboardId]!=undefined){
             const payLoad = {
                 "method": "updateDrawboard",
                 "xposi": xposi,
@@ -113,7 +113,7 @@ WsServer.on("request",request=>{
             drawboards[drawboardId].clients.forEach(c => {
                 clients[c.clientId].connection.send(JSON.stringify(payLoad))
             })
-
+        }
         }
 
         //a client want to join
@@ -122,8 +122,8 @@ WsServer.on("request",request=>{
             const clientId = result.clientId;
             const gameId = result.gameId;
             const game = games[gameId];
-
-        const color =  {"0": game.tokenscolorarray[0], "1": game.tokenscolorarray[1]}[game.clients.length]
+            if(game!=undefined){
+            const color =  {"0": game.tokenscolorarray[0], "1": game.tokenscolorarray[1]}[game.clients.length]
             game.clients.push({
                 "clientId": clientId,
                 "color": color
@@ -138,6 +138,7 @@ WsServer.on("request",request=>{
             game.clients.forEach(c => {
                 clients[c.clientId].connection.send(JSON.stringify(payLoad))
             })
+        }
         }
         //a user moves token 
         if(result.method==="updatepos"){
@@ -182,6 +183,7 @@ WsServer.on("request",request=>{
             const clientId=result.clientId;
             const chattext=result.chattext;
             const color=result.color;
+            if(games[gameId]!=undefined){
             const payLoad = {
                 "method": "chat",
                 "chattext":chattext,
@@ -193,6 +195,7 @@ WsServer.on("request",request=>{
             games[gameId].clients.forEach(c => {
                 clients[c.clientId].connection.send(JSON.stringify(payLoad))
             })
+        }
         }
 
     })
