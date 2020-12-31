@@ -1,7 +1,7 @@
 body{
   max-height: 100%;
   overflow-x: auto; 
-  background-image: url('background.jfif');
+  background-image: url('/background.jpg');
 
 }
 .gameCreate{
@@ -18,7 +18,6 @@ body{
 	height: 40px;
 	width: 40px;
 	background-color: transparent; 
-	background-image: url("back.png");
 	background-position: center;
 	background-repeat: no-repeat;  
 	border: none;
@@ -40,18 +39,18 @@ body{
 	width: 100%;
 	justify-content: center;
 	display: flex;
-	#background: #666666;
+	/* background: 666666; */
 }
 
 .diceCol{
 	width: 100%;
 	justify-content: center;
 	display: flex;
-	#background: #654321;
+	/* background: #654321; */
 }
 
-clientID{
-}
+/* clientID{
+} */
 
 #uploadTextTwo{
 	display: none;
@@ -70,7 +69,7 @@ clientID{
 	margin-top: 7.5vh; 
 	width: 100%;
 	height: 213px;
-	#max-width: 315px;
+	/* #max-width: 315px; */
 	background: #F6F6F6;	
 	box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
 	overflow-y: auto;
@@ -105,7 +104,6 @@ clientID{
 	
 	background-color: transparent; 
 	margin-right: 2.77vh;
-	background-image: url("delete.png");
 	background-position: center;
 	background-repeat: no-repeat; 
 	border-radius: 50%;
@@ -121,7 +119,6 @@ clientID{
 .tokenAdd{
 	
 	background-color: transparent; 
-	background-image: url("add.png");
 	background-position: center;
 	background-repeat: no-repeat; 
 	margin-right: 2.77vh;
@@ -169,14 +166,14 @@ clientID{
 	box-sizing: border-box;
 	border-radius: 0.69vh;
 }
-
+/* 
 .dragDropCol{
 	
 	#background: #654321;
 }
 .dragDropRow{
 	#background: #123456;	
-}
+} */
 .dragBoard{
 	
 	margin: 20px;
@@ -188,7 +185,7 @@ clientID{
 	max-height: 500px;
 	background: #EDEDED;
 	border: 1.38vh solid rgba(0, 0, 0, 0.84);
-	#box-sizing: border-box;
+	box-sizing: border-box;
 	box-shadow: 0px 0.55vh 0.55vh rgba(0, 0, 0, 0.25), 0.55vh 0.55vh 3.46vh 1.38vh rgba(0, 0, 0, 0.15);
 	
 }
@@ -199,7 +196,6 @@ clientID{
 
 
 .dragBoardFileHover{
-	#background-image: url('');
 	background-color: #AFAFAF;
 }
 
@@ -218,8 +214,7 @@ clientID{
 
 }
 
-.loadResetContainer{
-	
+.loadResetContainer{	
 	margin: 6.9vh;
 	margin-top: 30px;
 	margin-bottom: 20px;
@@ -261,5 +256,3 @@ clientID{
 .imageLinkRow{
 	margin: 5vh;
 }
-
-
