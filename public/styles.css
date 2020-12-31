@@ -5,7 +5,7 @@ html{
 body{
   max-height: 100%;
   overflow-x: hidden; 
-  background-image: url('backround.jfif');
+  background-image: url('background.jpg');
 }
 
 .signindiv{
@@ -89,6 +89,7 @@ body{
 }
 
 .oneblocks{
+	background-size: cover;
 	margin-left: 15px;
 	margin-right: 15px;
 	height: 10vh;
@@ -97,12 +98,12 @@ body{
 }
 
 .oneblocks:hover{
-
 	margin: -5px 1px 5px 1px;
 	cursor: pointer;
 }
 
 .twoblocks{
+	background-size: cover;
 	height: 10vh;
 	padding-left: 25px;
 	padding-top: 15px;

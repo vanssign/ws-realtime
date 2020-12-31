@@ -1,4 +1,3 @@
-const http=require('http');
 const express=require('express');
 var app=express();
 app.get("/creategame",(req,res)=>res.sendFile(__dirname+"/creategame.html"));
@@ -6,6 +5,7 @@ app.get("/joingame",(req,res)=>res.sendFile(__dirname+"/joingame.html"));
 app.get("/drawboard",(req,res)=>res.sendFile(__dirname+"/drawboard.html"));
 app.use(express.static('public'));
 app.listen(process.env.PORT|| 9091,()=>console.log('Express Server Listening on port 9091'));
+const http=require('http');
 const websocketServer=require('websocket').server;
 const httpServer=http.createServer();
 const uuid=require('uuid')
@@ -90,6 +90,13 @@ WsServer.on("request",request=>{
             drawboard.clients.forEach(c => {
                 clients[c.clientId].connection.send(JSON.stringify(payLoad))
             })}
+            else{
+                const payLoad = {
+                    "method": "error",
+                    "msg": "Invalid DrawboardId"
+                }
+                clients[clientId].connection.send(JSON.stringify(payLoad));
+            }
         }
 
         if(result.method==="updateDrawboard"){
@@ -138,6 +145,13 @@ WsServer.on("request",request=>{
             game.clients.forEach(c => {
                 clients[c.clientId].connection.send(JSON.stringify(payLoad))
             })
+        }
+        else{
+            const payLoad = {
+                "method": "error",
+                "msg": "Invalid GameId"
+            }
+            clients[clientId].connection.send(JSON.stringify(payLoad));
         }
         }
         //a user moves token 
@@ -195,6 +209,13 @@ WsServer.on("request",request=>{
             games[gameId].clients.forEach(c => {
                 clients[c.clientId].connection.send(JSON.stringify(payLoad))
             })
+        }
+        else{
+            const payLoad = {
+                "method": "error",
+                "msg": "Invalid GameId: Cannot Chat"
+            }
+            clients[clientId].connection.send(JSON.stringify(payLoad));
         }
         }
 

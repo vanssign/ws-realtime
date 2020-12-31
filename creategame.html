@@ -4,11 +4,12 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
-        <link rel="stylesheet" href="http://localhost:9091/css/creategamestyles.css">
+        <link rel="stylesheet" href="http://localhost:9091//css/creategamestyles.css">
         <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Ubuntu">
         <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" integrity="sha512-+4zCK9k+qNFUR5X+cKL9EIR+ZOhtIloNl9GIKS57V1MyNsYpYcUrUeQc9vNfzsWfV28IaLL3i96P9sdNyeRssA==" crossorigin="anonymous" />
         <script src="https://use.fontawesome.com/d3be1c530a.js"></script>
-        <title>Tip Tap</title>
+        <title>Create Game | TipTap</title>
     </head>
     <body>
 
@@ -16,7 +17,7 @@
             <div class="col-4 my-auto gameCreate">
                 <div class="row d-flex justify-content-center">
                     <div class="col-2 backCol mx-auto my-auto">
-                        <button class="backButton"></button>
+                        <a href="http://localhost:9091/"><button class="backButton"><i class="fas fa-arrow-left"></i></button></a>
                     </div>
                     <div class="col-8 headingCol mx-auto my-auto">
                         <span class="headingSpan">GAME CREATOR</span>
@@ -40,7 +41,7 @@
                             <div id="tokens"></div>
                             <div class="row">
                                 <div class="col text-right addTokenCol">
-                                    <button id="btnAddToken" class="tokenAdd"></button>
+                                    <button id="btnAddToken" class="tokenAdd"><i class='fas fa-plus'></i></button>
                                 </div>
                             </div>
                             <div class="row">
@@ -134,7 +135,7 @@
                     <div>
                         <div class="row">
                             <div class="col text-left">
-                                <div id="clientIdContainer"></div>
+                                <div id="clientIdContainer"><i class="fas fa-spinner fa-spin fa-2x"></i></div>
                             </div>
                             <div></div>
                         </div>
@@ -145,7 +146,7 @@
                             let gameId = null;
                             let playerColor = null;
                             let boardImagelink = null;
-                            let ws = new WebSocket("ws://localhost:9090");
+                            let ws = new WebSocket("ws://localhost:9090/");
                             // let ws=new WebSocket("ws://f96a080c7b81.ngrok.io");
 
                             const btnCreate = document.getElementById("btnCreate");
@@ -168,7 +169,7 @@
                             var fileLabel = document.getElementById("fileLabel");
 
                             // on pressing + this is appended to #token element
-                            var newTokenHTML = "<div class='col-4 infoColorCol' align='center'><input type='text' class='tokeninfocolor' placeholder='color'></div>" + "<div class='col-4 infoCol' align='center'><input type='text' class='tokeninfono' placeholder='no.'></div>" + "<div class='col-4 removeCol' align='center'><button class='tokenRemove text-center' onclick='removeRow(this.parentElement)'></button></div>";
+                            var newTokenHTML = "<div class='col-4 infoColorCol' align='center'><input type='text' class='tokeninfocolor' placeholder='color'></div>" + "<div class='col-4 infoCol' align='center'><input type='text' class='tokeninfono' placeholder='no.'></div>" + "<div class='col-4 removeCol' align='center'><button class='tokenRemove text-center' onclick='removeRow(this.parentElement)'><i class='far fa-trash-alt fa-lg'></i></button></div>";
 
                             btnAddToken.addEventListener("click", e => {
                                 let tokenboxItem = document.createElement("div");
