@@ -4,25 +4,26 @@
 		<meta charset="utf-8">
 		<title>TipTap</title>
 		
-		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-		<link rel="stylesheet" href="styles.css">
+		<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" integrity="sha512-+4zCK9k+qNFUR5X+cKL9EIR+ZOhtIloNl9GIKS57V1MyNsYpYcUrUeQc9vNfzsWfV28IaLL3i96P9sdNyeRssA==" crossorigin="anonymous"/>
+		<link rel="stylesheet" href="css/styles.css">
 		<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto">
 		<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Comic Neue">
 		<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Ubuntu">
 		<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Suez One">
 		<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Noto Serif">
-		<script src="https://use.fontawesome.com/d3be1c530a.js"></script>
-		
+		<!-- <script src="https://use.fontawesome.com/d3be1c530a.js"></script> -->
 	</head>
 	<body>
+		<div class="container-fluid">
 		<div class="row text-right signindiv">
 			<div class="col-12">
-  				<a>Sign in&ensp;<i class="fa fa-sign-in"></i></a>	
+  				<a>Sign in&ensp; <i class="fas fa-sign-in-alt"></i></a>	
 			</div>
 		</div>
 		<div class="row logo">
 			
-				<img class="mx-auto d-block" src="logo_flat.png" alt="TipTap Logo">
+				<img class="mx-auto d-block" src="images/logo_flat.png" alt="TipTap Logo">
 			
 		</div>
 		<div class="row text-center">
@@ -30,16 +31,18 @@
 				<p class="tagline">An accumulation of Happy times</p>	
 			</div>
 		</div>
+		<div class="row">
+			<div class="col-12">
 		<a class="text-center text-decoration-none text-white text-center" href="http://localhost:9091/joingame">
 		<div class="alert alert-primary" style="opacity: 0.7;" role="alert">
 			<strong>Already Have a GameId? Click here</strong>
 		  </div>
 		  </a>
-		
-	
+		</div>
+		</div>
 		<div class="row gamesone">
-    			<div class="col-md-3">
-				<div class="oneblocks" style="background-image: url('ludo.png');">
+    			<div class="col-md-3 col-12">
+				<div class="oneblocks" style="background-image: url('images/ludo.png');">
       					<span class="LUDO">
 						LUDO
 					</span>
@@ -48,41 +51,43 @@
 					</span>
     				</div>
 			</div>
-    			<div class="col-md-3">
-				<div class="oneblocks" style="background-image: url('checkers.png');">
+    			<div class="col-md-3 col-12">
+				<div class="oneblocks" style="background-image: url('images/checkers.png');">
       					<p class="checkers">Checkers</p>
     				</div>
 			</div>
   		</div>
 		<div class="row">
-    			<div class="col-md-3">
-				<div class="twoblocks gamestwo" style="background-image: url('ludo.png');">
+    			<div class="col-md-3 col-12">
+				<div class="twoblocks gamestwo" style="background-image: url('images/ludo.png');">
       					<p class="LUDO">LUDO</p>
     				</div>
 			</div>
-    			<div class="col-md-3">
-				<div class="twoblocks" style="background-image: url('chess.png');">
+    			<div class="col-md-3 col-12">
+				<div class="twoblocks" style="background-image: url('images/chess.png');">
       					<p class="checkers">Chess</p>
     				</div>
 			</div>
-			<div class="col-md-3">
+			<div class="col-md-3 col-12">
 				<a class="text-reset text-decoration-none" href="http://localhost:9091/drawboard">
-				<div class="twoblocks" style="background-image: url('drawboard.png');">
+				<div class="twoblocks" style="background-image: url('images/drawboard.png');">
 					<p class="drawboard">Drawboard</p>
 					<p class="draw">For games like dots and tic tac toe</p>
 				</div>
 				</a>
 			</div>
-			<div class="col-md-3">
+			<div class="col-md-3 col-12">
 				<a href="http://localhost:9091/creategame" class="text-reset text-decoration-none">
-				<div class="twoblocks" style="background-image: url('custom.png');">
+				<div class="twoblocks" style="background-image: url('images/custom.png');">
       					<p class="custom">Custom</p>
 					</div>
 				</a>
 			</div>
-  		</div>
+		  </div>
 		<div class="row woodrow">
-			<img class="wood" src="wood.png">
+			<img class="wood" src="images/wood.png">
 		</div>
+		</div>
+		
 	</body> 
 </html>

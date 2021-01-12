@@ -1,11 +1,10 @@
 body{
   max-height: 100%;
-  overflow-x: auto; 
-  background-image: url('/background.jpg');
+  overflow-x: hidden; 
+  background-image: url('../images/background.jpg');
 
 }
 .gameCreate{
-
 	font-family: Ubuntu;
 	color: #000000;
 	max-width: 250px;
@@ -61,8 +60,6 @@ body{
 }
 
 .tokenContainer{
-	
-	
 	overflow-x: hidden;
 	margin-left: 5vh;
 	margin-right: 5vh;
@@ -76,14 +73,12 @@ body{
 }
 
 .tokenText{
-	
 	color: #000000;
 	font-family: Roboto;
 	font-weight: 500;
 	font-size:  24px;
 	padding-top: 2.77vh;
 	margin-bottom: 2.77vh;
-
 }
 
 .tokeninfocolor{
@@ -175,8 +170,7 @@ body{
 	#background: #123456;	
 } */
 .dragBoard{
-	
-	margin: 20px;
+	margin-top: 25px;
 	width: 100%;
 	height: 100%;
 	min-width: 400px;

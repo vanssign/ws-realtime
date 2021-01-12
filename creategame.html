@@ -7,299 +7,317 @@
         <link rel="stylesheet" href="http://localhost:9091//css/creategamestyles.css">
         <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Ubuntu">
         <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto">
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" integrity="sha512-+4zCK9k+qNFUR5X+cKL9EIR+ZOhtIloNl9GIKS57V1MyNsYpYcUrUeQc9vNfzsWfV28IaLL3i96P9sdNyeRssA==" crossorigin="anonymous" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" integrity="sha512-+4zCK9k+qNFUR5X+cKL9EIR+ZOhtIloNl9GIKS57V1MyNsYpYcUrUeQc9vNfzsWfV28IaLL3i96P9sdNyeRssA==" crossorigin="anonymous"/>
         <script src="https://use.fontawesome.com/d3be1c530a.js"></script>
         <title>Create Game | TipTap</title>
     </head>
     <body>
+        <div
+            class="container-fluid">
 
-        <div class="row my-auto">
-            <div class="col-4 my-auto gameCreate">
-                <div class="row d-flex justify-content-center">
-                    <div class="col-2 backCol mx-auto my-auto">
-                        <a href="http://localhost:9091/"><button class="backButton"><i class="fas fa-arrow-left"></i></button></a>
-                    </div>
-                    <div class="col-8 headingCol mx-auto my-auto">
-                        <span class="headingSpan">GAME CREATOR</span>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-8 col-md-12 clientID text-center pt-3" id="gameIdContainer">
-                GameId:
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-lg-4 col-md-12">
-                <div class="row">
-                    <div class="col-lg-12 col-md-6 col-sm-6 col-xs-12 mx-auto tokenCol">
-                        <div class="tokenContainer">
-                            <div class="row">
-                                <div class="col text-center tokenText">
-                                    Tokens
-                                </div>
-                            </div>
-                            <div id="tokens"></div>
-                            <div class="row">
-                                <div class="col text-right addTokenCol">
-                                    <button id="btnAddToken" class="tokenAdd"><i class='fas fa-plus'></i></button>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col text-center">
-                                    <button id="gettokeninfo" class="confirmButton">Confirm</button>
-                                </div>
-                            </div>
+            <!-- Top  -->
+            <div class="row my-auto">
+                <div class="col-4 my-auto gameCreate">
+                    <div class="row d-flex justify-content-center">
+                        <div class="col-2 backCol mx-auto my-auto">
+                            <a href="http://localhost:9091/">
+                                <button class="backButton">
+                                    <i class="fas fa-arrow-left"></i>
+                                </button>
+                            </a>
                         </div>
-                    </div>
-                    <div class="col-lg-12 col-md-6 col-sm-6 col-xs-12 mx-auto diceCol">
-                        <div class="diceContainer">
-                            <div class="row">
-                                <div class="col text-center tokenText">
-                                    Dice
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-8 text-left">
-                                    <label class="labelText">No. of Dice</label>
-                                </div>
-                                <div class="col-4">
-                                    <input type="text" id="noofDice" placeholder="no." size="2">
-                                </div>
-                            </div>
+                        <div class="col-8 headingCol mx-auto my-auto">
+                            <span class="headingSpan">GAME CREATOR</span>
                         </div>
                     </div>
                 </div>
+                <div class="col-lg-8 col-md-12 text-center pt-3" id="gameIdContainer">
+                    GameId:
+                </div>
             </div>
-            <div class="col-lg-5 col-md-12">
-                <div class="row dragDropRow">
-                    <div class="col-12 dragDropCol">
-                        <form id="dropFileForm" class="row dragBoard mx-auto" method="post" action="" enctype="multipart/form-data" ondragover="overrideDefault(event);fileHover();" ondragenter="overrideDefault(event);fileHover();" ondragleave="overrideDefault(event);fileHoverEnd();" ondrop="overrideDefault(event);fileHoverEnd();addFile(event);">
-                            <div id="uploadTextOne" class="col-12 text-center justify-content-center align-self-center uploadText">
-                                <input type="file" name="board" id="fileInput" class="fileInputClass" onchange="addFile(event);">
-                                <span class="dragDropText">Drag and drop or
-                                </span>
-                                <label for="fileInput" id="fileLabel">
-                                    <span id="fileLabel" class="uploadLabel">Upload</span>
-                                </label>
-                                <span class="dragDropText">
-                                    a board image</span>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-                <div id="uploadTextTwo" class="row">
-                    <div class="col-12 text-center justify-content-center align-self-center uploadText">
-                        <input type="file" name="board" id="fileInput" class="fileInputClass" onchange="addFile(event);">
-                        <span class="dragDropText">Drag and drop or
-                        </span>
-                        <label for="fileInput" id="fileLabel">
-                            <span id="fileLabel" class="uploadLabel">Upload</span>
-                        </label>
-                        <span class="dragDropText">
-                            a board image</span>
-                    </div>
-                </div>
-                <div id="incorrectImage" class="row">
-                    <div class="col-12 text-center justify-content-center align-self-center uploadText">
-                        Upload unsuccessful. Please upload a file of image type.
-                    </div>
-                </div>
-                <div class="row imageLinkRow">
-                    <div class="col imageLinkCol d-flex justify-content-center">
-                        <label class="imageLinkText">Board Image Upload &nbsp;</label>
-                        <input type="text" id="boardImageUpload" class="imageLinkInput">
 
+            <!-- center -->
+            <div class="row">
+                <div class="col-lg-4 col-md-12">
+                    <div class="row">
+                        <div class="col-lg-12 col-md-6 col-sm-6 col-xs-12 mx-auto tokenCol">
+                            <div class="tokenContainer">
+                                <div class="row">
+                                    <div class="col text-center tokenText">
+                                        Tokens
+                                    </div>
+                                </div>
+                                <div id="tokens"></div>
+                                <div class="row">
+                                    <div class="col text-right addTokenCol">
+                                        <button id="btnAddToken" class="tokenAdd">
+                                            <i class='fas fa-plus'></i>
+                                        </button>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col text-center">
+                                        <button id="gettokeninfo" class="confirmButton">Confirm</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-12 col-md-6 col-sm-6 col-xs-12 mx-auto diceCol">
+                            <div class="diceContainer">
+                                <div class="row">
+                                    <div class="col text-center tokenText">
+                                        Dice
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-8 text-left">
+                                        <label class="labelText">No. of Dice</label>
+                                    </div>
+                                    <div class="col-4">
+                                        <input type="text" id="noofDice" placeholder="no." size="2">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
 
-            </div>
-            <div class="col-lg-3 col-md-12">
-                <div class="row">
-                    <div class="container loadResetContainer mx-auto">
-                        <div class="row">
-                            <div class="col d-flex justify-content-center">
-                                <button class="resetButton">RESET</button>
-                            </div>
+                <!-- board Form -->
+                <div class="col-lg-5 col-md-12">
+                    <div class="row dragDropRow">
+                        <div class="col-12 dragDropCol">
+                            <form id="dropFileForm" class="row dragBoard mx-auto" method="post" action="" enctype="multipart/form-data" ondragover="overrideDefault(event);fileHover();" ondragenter="overrideDefault(event);fileHover();" ondragleave="overrideDefault(event);fileHoverEnd();" ondrop="overrideDefault(event);fileHoverEnd();addFile(event);">
+                                <div id="uploadTextOne" class="col-12 text-center justify-content-center align-self-center uploadText">
+                                    <input type="file" name="board" id="fileInput" class="fileInputClass" onchange="addFile(event);">
+                                    <span class="dragDropText">Drag and drop or
+                                    </span>
+                                    <label for="fileInput" id="fileLabel">
+                                        <span id="fileLabel" class="uploadLabel">Upload</span>
+                                    </label>
+                                    <span class="dragDropText">
+                                        a board image</span>
+                                </div>
+                            </form>
                         </div>
-                        <div class="row">
-                            <div class="col d-flex justify-content-center">
-                                <button class="loadButton">Load Present</button>
-                            </div>
+                    </div>
+                    <div id="uploadTextTwo" class="row">
+                        <div class="col-12 text-center justify-content-center align-self-center uploadText">
+                            <input type="file" name="board" id="fileInput" class="fileInputClass" onchange="addFile(event);">
+                            <span class="dragDropText">Drag and drop or
+                            </span>
+                            <label for="fileInput" id="fileLabel">
+                                <span id="fileLabel" class="uploadLabel">Upload</span>
+                            </label>
+                            <span class="dragDropText">
+                                a board image</span>
+                        </div>
+                    </div>
+                    <div id="incorrectImage" class="row">
+                        <div class="col-12 text-center justify-content-center align-self-center uploadText">
+                            Upload unsuccessful. Please upload a file of image type.
+                        </div>
+                    </div>
+                    <div class="row imageLinkRow">
+                        <div class="col imageLinkCol d-flex justify-content-center">
+                            <label class="imageLinkText">Board Image Upload &nbsp;</label>
+                            <input type="text" id="boardImageUpload" class="imageLinkInput">
+
                         </div>
                     </div>
                 </div>
-                <div class="row">
-                    <div class="col d-flex justify-content-center">
-                        <button id="btnCreate" class="saveButton">Save</button>
+
+
+                <div class="col-lg-3 col-md-12">
+                    <div class="row">
+                        <div class="container loadResetContainer mx-auto">
+                            <div class="row">
+                                <div class="col d-flex justify-content-center">
+                                    <button class="resetButton">RESET</button>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col d-flex justify-content-center">
+                                    <button class="loadButton">Load Present</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col d-flex justify-content-center">
+                            <button id="btnCreate" class="saveButton">Save</button>
+                        </div>
                     </div>
                     <div>
                         <div class="row">
-                            <div class="col text-left">
-                                <div id="clientIdContainer"><i class="fas fa-spinner fa-spin fa-2x"></i></div>
+                            <div class="col text-center">
+                                <div id="clientIdContainer">
+                                    <i class="fas fa-spinner fa-spin fa-2x"></i>
+                                </div>
                             </div>
-                            <div></div>
                         </div>
+                    </div>
+                </div>
+            </div>
+        </div>
 
-                        <script>
-                            // HTML elements
-                            let clientId = null;
-                            let gameId = null;
-                            let playerColor = null;
-                            let boardImagelink = null;
-                            let ws = new WebSocket("ws://localhost:9090/");
-                            // let ws=new WebSocket("ws://f96a080c7b81.ngrok.io");
+        
+        <script>
+            // HTML elements
+            let clientId = null;
+            let gameId = null;
+            let playerColor = null;
+            let boardImagelink = null;
+            let ws = new WebSocket("ws://localhost:9090/");
+            // let ws=new WebSocket("ws://f96a080c7b81.ngrok.io");
 
-                            const btnCreate = document.getElementById("btnCreate");
-                            const gameIdContainer = document.getElementById("gameIdContainer");
-                            const clientIdContainer = document.getElementById("clientIdContainer");
-                            const noofDice = document.getElementById("noofDice");
-                            const boardImageUpload = document.getElementById("boardImageUpload");
-                            const tokensinfocolor = document.getElementsByClassName("tokeninfocolor");
-                            const tokensinfono = document.getElementsByClassName("tokeninfono");
-                            const gettokeninfo = document.getElementById("gettokeninfo");
-                            const tokenclass = document.getElementById("tokens");
-                            var tokenscolorarray = [];
-                            var tokensnoarray = [];
-                            const tokenContainer = document.getElementById("tokenContainer");
-                            const diceContainer = document.getElementById("diceContainer");
-                            const btnAddToken = document.getElementById("btnAddToken");
+            const btnCreate = document.getElementById("btnCreate");
+            const gameIdContainer = document.getElementById("gameIdContainer");
+            const clientIdContainer = document.getElementById("clientIdContainer");
+            const noofDice = document.getElementById("noofDice");
+            const boardImageUpload = document.getElementById("boardImageUpload");
+            const tokensinfocolor = document.getElementsByClassName("tokeninfocolor");
+            const tokensinfono = document.getElementsByClassName("tokeninfono");
+            const gettokeninfo = document.getElementById("gettokeninfo");
+            const tokenclass = document.getElementById("tokens");
+            var tokenscolorarray = [];
+            var tokensnoarray = [];
+            const tokenContainer = document.getElementById("tokenContainer");
+            const diceContainer = document.getElementById("diceContainer");
+            const btnAddToken = document.getElementById("btnAddToken");
 
-                            var dropFileForm = document.getElementById("dropFileForm");
-                            var droppedFile;
-                            var fileLabel = document.getElementById("fileLabel");
+            var dropFileForm = document.getElementById("dropFileForm");
+            var droppedFile;
+            var fileLabel = document.getElementById("fileLabel");
 
-                            // on pressing + this is appended to #token element
-                            var newTokenHTML = "<div class='col-4 infoColorCol' align='center'><input type='text' class='tokeninfocolor' placeholder='color'></div>" + "<div class='col-4 infoCol' align='center'><input type='text' class='tokeninfono' placeholder='no.'></div>" + "<div class='col-4 removeCol' align='center'><button class='tokenRemove text-center' onclick='removeRow(this.parentElement)'><i class='far fa-trash-alt fa-lg'></i></button></div>";
+            // on pressing + this is appended to #token element
+            var newTokenHTML = "<div class='col-4 infoColorCol' align='center'><input type='text' class='tokeninfocolor' placeholder='color'></div>" + "<div class='col-4 infoCol' align='center'><input type='text' class='tokeninfono' placeholder='no.'></div>" + "<div class='col-4 removeCol' align='center'><button class='tokenRemove text-center' onclick='removeRow(this.parentElement)'><i class='far fa-trash-alt fa-lg'></i></button></div>";
 
-                            btnAddToken.addEventListener("click", e => {
-                                let tokenboxItem = document.createElement("div");
-                                tokenboxItem.innerHTML = newTokenHTML;
-                                tokenboxItem.classList.add("row");
-                                tokenboxItem.classList.add("tokenRow");
-                                document.getElementById("tokens").appendChild(tokenboxItem);
-                            })
+            btnAddToken.addEventListener("click", e => {
+                let tokenboxItem = document.createElement("div");
+                tokenboxItem.innerHTML = newTokenHTML;
+                tokenboxItem.classList.add("row");
+                tokenboxItem.classList.add("tokenRow");
+                document.getElementById("tokens").appendChild(tokenboxItem);
+            })
 
-                            function removeRow(input) {
-                                document.getElementById('tokens').removeChild(input.parentNode);
-                            }
+            function removeRow(input) {
+                document.getElementById('tokens').removeChild(input.parentNode);
+            }
 
-                            gettokeninfo.addEventListener("click", e => {
+            gettokeninfo.addEventListener("click", e => {
 
-                                tokenscolorarray = [];
-                                tokensnoarray = [];
+                tokenscolorarray = [];
+                tokensnoarray = [];
 
-                                for (var count = 0; count < tokensinfocolor.length; count++) {
-                                    tokenscolorarray[count] = tokensinfocolor[count].value;
-                                    tokensnoarray[count] = tokensinfono[count].value;
-                                }
+                for (var count = 0; count < tokensinfocolor.length; count++) {
+                    tokenscolorarray[count] = tokensinfocolor[count].value;
+                    tokensnoarray[count] = tokensinfono[count].value;
+                }
+            })
 
-                                console.log(tokenscolorarray);
-                                console.log(tokensnoarray);
-                            })
+            // wiring events
 
-                            // wiring events
+            btnCreate.addEventListener("click", e => {
+                const payLoad = {
+                    "method": "create",
+                    "clientId": clientId,
+                    "tokenscolorarray": tokenscolorarray,
+                    "tokensnoarray": tokensnoarray,
+                    "noofDice": noofDice.value,
+                    "boardImage": boardImageUpload.value
+                }
+                ws.send(JSON.stringify(payLoad));
+            })
 
-                            btnCreate.addEventListener("click", e => {
-                                const payLoad = {
-                                    "method": "create",
-                                    "clientId": clientId,
-                                    "tokenscolorarray": tokenscolorarray,
-                                    "tokensnoarray": tokensnoarray,
-                                    "noofDice": noofDice.value,
-                                    "boardImage": boardImageUpload.value
-                                }
-                                ws.send(JSON.stringify(payLoad));
-                            })
+            // message recieved from ws server
+            ws.onmessage = message => { // message.data
+                const response = JSON.parse(message.data);
+                console.log(response);
+                // connect
+                if (response.method === "connect") {
+                    clientId = response.clientId;
+                    clientIdContainer.innerHTML = "ClientId: " + clientId;
+                    console.log("Client id Set successfully " + clientId)
+                }
 
-                            // message recieved from ws server
-                            ws.onmessage = message => { // message.data
-                                const response = JSON.parse(message.data);
-                                console.log(response);
-                                // connect
-                                if (response.method === "connect") {
-                                    clientId = response.clientId;
-                                    clientIdContainer.innerHTML = "ClientId: " + clientId;
-                                    console.log("Client id Set successfully " + clientId)
-                                }
-
-                                // create
-                                if (response.method === "create") {
-                                    gameId = response.game.id;
-                                    gameIdContainer.innerHTML = "GameId: " + gameId;
-                                    console.log("game successfully created with id " + response.game.id);
-                                }
-                            }
+                // create
+                if (response.method === "create") {
+                    gameId = response.game.id;
+                    gameIdContainer.innerHTML = "GameId: " + gameId;
+                    console.log("game successfully created with id " + response.game.id);
+                }
+            }
 
 
-                            function overrideDefault(event) {
-                                event.preventDefault();
-                                event.stopPropagation();
-                            }
+            function overrideDefault(event) {
+                event.preventDefault();
+                event.stopPropagation();
+            }
 
-                            function fileHover() {
-                                dropFileForm.classList.add("dragBoardFileHover");
-                            }
+            function fileHover() {
+                dropFileForm.classList.add("dragBoardFileHover");
+            }
 
-                            function fileHoverEnd() {
-                                dropFileForm.classList.remove("dragBoardFileHover");
-                            }
+            function fileHoverEnd() {
+                dropFileForm.classList.remove("dragBoardFileHover");
+            }
 
-                            function getExtension(filename) {
-                                var parts = filename.split('.');
-                                return parts[parts.length - 1];
-                            }
+            function getExtension(filename) {
+                var parts = filename.split('.');
+                return parts[parts.length - 1];
+            }
 
-                            function getImageURL() {}
+            function getImageURL() {}
 
-                            function isImage(filename) {
-                                var ext = getExtension(filename);
-                                switch (ext.toLowerCase()) {
-                                    case 'jpg':
-                                    case 'jpeg':
-                                    case 'jfif':
-                                    case 'png':
-                                        return true;
-                                }
-                                return false;
-                            }
+            function isImage(filename) {
+                var ext = getExtension(filename);
+                switch (ext.toLowerCase()) {
+                    case 'jpg':
+                    case 'jpeg':
+                    case 'jfif':
+                    case 'png':
+                        return true;
+                }
+                return false;
+            }
 
-                            function addFile(event) {
-                                droppedFile = event.target.files || event.dataTransfer.files;
-                                showFile(droppedFile);
-                            }
+            function addFile(event) {
+                droppedFile = event.target.files || event.dataTransfer.files;
+                showFile(droppedFile);
+            }
 
-                            function showFile(files) {
+            function showFile(files) {
 
-                                if (files.length > 0) {
+                if (files.length > 0) {
 
-                                    var file = files[0];
-                                    var reader = new FileReader();
+                    var file = files[0];
+                    var reader = new FileReader();
 
-                                    console.log(file);
+                    console.log(file);
 
-                                    reader.addEventListener("load", function () {
+                    reader.addEventListener("load", function () {
 
-                                        if (isImage(file.name) != true) {
-                                            document.getElementById("incorrectImage").style.display = "block";
-                                        } else {
-                                            boardImageUpload.value = reader.result;
-                                            document.getElementById("dropFileForm").style.background = "url(" + reader.result + ") no-repeat";
+                        if (isImage(file.name) != true) {
+                            document.getElementById("incorrectImage").style.display = "block";
+                        } else {
+                            boardImageUpload.value = reader.result;
+                            document.getElementById("dropFileForm").style.background = "url(" + reader.result + ") no-repeat";
 
-                                            document.getElementById("uploadTextOne").style.display = "none";
-                                            document.getElementById("uploadTextTwo").style.display = "block";
-                                            document.getElementById("incorrectImage").style.display = "none";
+                            document.getElementById("uploadTextOne").style.display = "none";
+                            document.getElementById("uploadTextTwo").style.display = "block";
+                            document.getElementById("incorrectImage").style.display = "none";
 
-                                        }
-                                    }, false);
+                        }
+                    }, false);
 
-                                    if (file) {
-                                        reader.readAsDataURL(file);
-                                    }
+                    if (file) {
+                        reader.readAsDataURL(file);
+                    }
 
-                                } else {
-                                    document.getElementById("incorrectImage").style.display = "block";
-                                }
-                            }
-                        </script>
-                    </body>
-                </html>
+                } else {
+                    document.getElementById("incorrectImage").style.display = "block";
+                }
+            }
+        </script>
+    </body>
+</html>

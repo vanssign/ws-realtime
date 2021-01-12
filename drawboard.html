@@ -7,10 +7,11 @@
     </head>
     <body>
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" integrity="sha512-+4zCK9k+qNFUR5X+cKL9EIR+ZOhtIloNl9GIKS57V1MyNsYpYcUrUeQc9vNfzsWfV28IaLL3i96P9sdNyeRssA==" crossorigin="anonymous"/>
+        <link
+        rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" integrity="sha512-+4zCK9k+qNFUR5X+cKL9EIR+ZOhtIloNl9GIKS57V1MyNsYpYcUrUeQc9vNfzsWfV28IaLL3i96P9sdNyeRssA==" crossorigin="anonymous"/>
 
-         <!--Error- Modal -->
-         <div class="modal fade" id="errorModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <!--Error- Modal -->
+        <div class="modal fade" id="errorModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
@@ -30,23 +31,19 @@
         </div>
 
 
-        <div id="clientIdContainer"><i class="fas fa-spinner fa-spin fa-2x"></i></div>
+        <div id="clientIdContainer">
+            <i class="fas fa-spinner fa-spin fa-2x"></i>
+        </div>
         <button id="newDrawboard">New Drawboard</button>
         <input id="txtDrawboardId" type="text">
         <button id="joinDrawboard">Join Drawboard</button><br/>
         <div id="drawboardIdContainer"></div>
         <div id="canvasContainer">
-            <canvas id="myCanvas" width="600" height="500" style="border:1px solid #000000;"></canvas>
+            <canvas id="myCanvas" width="600" height="500" style="border:1px solid #000000; touch-action: none;"></canvas>
         </div>
 
         <div id="paintBrushContainer"></div>
-        <div
-            id="paintBrush" style="position: absolute;">
-            <!-- Include a header DIV with the same name as the draggable DIV, followed by "header" -->
-            <div id="paintBrushheader" style="cursor:grabbing;">
-                <i class="fas fa-paint-brush fa-lg" id="paintBrushIcon"></i>
-            </div>
-        </div>
+
         <script>
             let clientId = null;
             let drawboardId = null;
@@ -55,7 +52,7 @@
 
             const newDrawboard = document.getElementById("newDrawboard");
             const joinDrawboard = document.getElementById("joinDrawboard");
-            const paintBrush = document.getElementById("paintBrush");
+            const paintBrushContainer = document.getElementById("paintBrushContainer");
             const txtDrawboardId = document.getElementById("txtDrawboardId");
             const drawboardIdContainer = document.getElementById("drawboardIdContainer");
             var canvas = document.getElementById("myCanvas");
@@ -74,6 +71,7 @@
                     drawboardId = txtDrawboardId.value;
                 
 
+
                 const payLoad = {
                     "method": "joinDrawboard",
                     "clientId": clientId,
@@ -82,84 +80,63 @@
                 ws.send(JSON.stringify(payLoad));
             })
 
+            var _DRAGGING_STARTED;
+            var _LAST_MOUSEMOVE_POSITION;
+            canvas.addEventListener('pointerdown', function (e) {
+                _DRAGGING_STARTED = 1;
+                _LAST_MOUSEMOVE_POSITION = {
+                    x: e.pageX - canvas.offsetLeft,
+                    y: e.pageY - canvas.offsetTop
+                };
+            });
 
-            // Make the DIV element draggable:
-            dragElement(document.getElementById("paintBrush"));
-            function dragElement(elmnt) {
-                var pos1 = 0,
-                    pos2 = 0,
-                    pos3 = 0,
-                    pos4 = 0;
-                if (document.getElementById(elmnt.id + "header")) { // if present, the header is where you move the DIV from:
-                    document.getElementById(elmnt.id + "header").onmousedown = dragMouseDown;
-                } else { // otherwise, move the DIV from anywhere inside the DIV:
-                    elmnt.onmousedown = dragMouseDown;
+            canvas.addEventListener('pointerup', function (e) {
+                _DRAGGING_STARTED = 0;
+            });
+
+            canvas.addEventListener('pointerout', function (e) {
+                _DRAGGING_STARTED = 0;
+            });
+
+            canvas.addEventListener('pointermove', function (e) {
+                if (_DRAGGING_STARTED == 1) {
+                    var current_mouse_position = {
+                        x: e.pageX - canvas.offsetLeft,
+                        y: e.pageY - canvas.offsetTop
+                    };
+                   
+                    ctx.beginPath();
+                    ctx.moveTo(_LAST_MOUSEMOVE_POSITION.x, _LAST_MOUSEMOVE_POSITION.y);
+                    ctx.lineTo(current_mouse_position.x, current_mouse_position.y);
+                    ctx.lineWidth = 2;
+                    ctx.strokeStyle = playerColor;
+                    ctx.stroke();
+                    ctx.closePath();
+                    const payload={
+                        "method":"updateDrawboard",
+                        "clientId":clientId,
+                        "xposi":_LAST_MOUSEMOVE_POSITION.x,
+                        "yposi":_LAST_MOUSEMOVE_POSITION.y,
+                        "xposf":current_mouse_position.x,
+                        "yposf":current_mouse_position.y,
+                        "color":playerColor,
+                        "drawboardId":drawboardId
+                    }
+                    ws.send(JSON.stringify(payload));
+
+                    _LAST_MOUSEMOVE_POSITION = current_mouse_position;
                 }
+            });
 
-                function dragMouseDown(e) {
-                    e = e || window.event;
-                    e.preventDefault();
-                    // get the mouse cursor position at startup:
-                    pos3 = e.clientX;
-                    pos4 = e.clientY;
-                    document.onmouseup = closeDragElement;
-                    // call a function whenever the cursor moves:
-                    document.onmousemove = elementDrag;
-                }
-
-                function elementDrag(e) {
-                    e = e || window.event;
-                    e.preventDefault();
-                    // calculate the new cursor position:
-                    pos1 = pos3 - e.clientX;
-                    pos2 = pos4 - e.clientY;
-                    pos3 = e.clientX;
-                    pos4 = e.clientY;
-                    // set the element's new position:
-                    elmnt.style.top = (elmnt.offsetTop - pos2) + "px";
-                    elmnt.style.left = (elmnt.offsetLeft - pos1) + "px";
-                    var m = (elmnt.offsetLeft - pos1);
-                    var n = (elmnt.offsetTop - pos2);
-                    if (elmnt.id === "paintBrush") { // call drawOnCanvas for drawing via canvas inbuilt functions
-                        drawOnCanvas(playerColor,elmnt.offsetLeft,elmnt.offsetTop,m, n);
-
-                        const payLoad = {
-                            "method": "updateDrawboard",
-                            "xposi":elmnt.offsetLeft,
-                            "yposi":elmnt.offsetTop,
-                            "xposf": m,
-                            "yposf": n,
-                            "clientId": clientId,
-                            "color": playerColor,
-                            "drawboardId": drawboardId
-                        }
-                        ws.send(JSON.stringify(payLoad));
-                    } else if (elmnt.id === "eraser") 
-                        eraseOnCanvas(pos3,pos4,m, n);
-                    
-                }
-
-                function closeDragElement() { // stop moving when mouse button is released:
-                    document.onmouseup = null;
-                    document.onmousemove = null;
-                }
-            }
-
-
-            // Drawing on Canvas
-            function drawOnCanvas(color,initialposX,initialposY,finalposX,finalposY ) {
+          function  drawOnCanvas(color, xi, yi, xf, yf) {
                 ctx.beginPath();
-                ctx.lineWidth=5;
+                ctx.moveTo(xi, yi);
+                ctx.lineTo(xf, yf);
+                ctx.lineWidth = 2;
                 ctx.strokeStyle = color;
-                ctx.moveTo(initialposX, initialposY);
-                ctx.lineTo(finalposX, finalposY);
                 ctx.stroke();
+                ctx.closePath();
             }
-            // function eraseOnCanvas(i,j){
-            //     ctx.strokeStyle="purple";
-            //     ctx.lineTo(i,j);
-            //     ctx.stroke();
-            // }
 
             // message recieved from ws server
             ws.onmessage = message => { // message.data
@@ -178,7 +155,6 @@
                     if (drawboardId === null) 
                         drawboardId = txtDrawboardId.value;
                     
-
                     const payLoad = {
                         "method": "joinDrawboard",
                         "clientId": clientId,
@@ -191,7 +167,6 @@
                     drawboardIdContainer.innerHTML = "DrawboardId: " + drawboardId;
                     if (playerColor === null) {
                         playerColor = response.drawboard.clients[response.drawboard.clients.length - 1].color;
-                        document.getElementById("paintBrushIcon").style.color = playerColor;
                     }
                     txtDrawboardId.remove();
                     joinDrawboard.remove();
@@ -201,11 +176,12 @@
 
                 if (response.method === "updateDrawboard") {
                     if (response.clientId !== clientId) 
-                        drawOnCanvas(response.color, response.xposi, response.yposi,response.xposf, response.yposf);
+                        drawOnCanvas(response.color, response.xposi, response.yposi, response.xposf, response.yposf);
                     
+
                 }
-                if(response.method==="error"){
-                    document.getElementById("errorMsg").innerHTML=response.msg;
+                if (response.method === "error") {
+                    document.getElementById("errorMsg").innerHTML = response.msg;
                     $('#errorModal').modal('show');
                 }
             }
